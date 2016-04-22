@@ -25,11 +25,7 @@ var plugin = class extends Quantum.Model.Plugin {
             config.onBeforeAction = onBeforeAction;
         }
 
-        Router.route(atom.name, config);
-    }
-
-    isConfigurable() {
-        return true;
+        return Router.route(atom.name, config);
     }
 
     configure(config) {
