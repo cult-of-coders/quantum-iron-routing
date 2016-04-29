@@ -15,6 +15,7 @@ Package.onUse(function (api) {
 
     api.use([
         'ecmascript',
+        'templating',
         'cultofcoders:quantum-framework@1.0.4',
         'iron:router@1.0.12'
     ]);
