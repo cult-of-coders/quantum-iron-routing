@@ -1,9 +1,11 @@
-Router.requestRole = function (role, notAuthorizedTemplate = 'app.notAuthorized') {
+Router.requestRole = function (role) {
+    let roles = QF.use('service', 'roles');
+
     return function () {
-        if (Quantum.Roles.has(Meteor.userId(), role)) {
+        if (roles.has(Meteor.userId(), role)) {
             return this.next();
         } else {
-            return this.render(notAuthorizedTemplate);
+            return this.render(Router.options['notAuthorizedTemplate']);
         }
     };
 };

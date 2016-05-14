@@ -16,8 +16,7 @@ Q('route /', {
 Secure it by roles
 =====================
 
-Quantum Framework has an integrated role manager that you can use *Quantum.Roles*
-
+Uses the frameworks' service "roles". Q('service roles')
 Q('route /', {
     allowedRoles: ['USER', 'ADMIN']
 });

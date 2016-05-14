@@ -1,6 +1,6 @@
 Package.describe({
     name: 'cultofcoders:quantum-iron-routing',
-    version: '1.0.2',
+    version: '1.1.0',
     // Brief, one-line summary of the package.
     summary: 'Based on iron router, this plugin allows you to easily create routes within quantum framework',
     // URL to the Git repository containing the source code for this package.
@@ -16,14 +16,15 @@ Package.onUse(function (api) {
     api.use([
         'ecmascript',
         'templating',
-        'cultofcoders:quantum-framework@1.0.4',
+        'cultofcoders:quantum-framework@1.1.0',
         'iron:router@1.0.12'
     ]);
 
     api.imply('iron:router@1.0.12');
 
+    api.addFiles(['plugin.js']);
+
     api.addFiles([
-        'plugin.js',
         'extension.js',
         'templateHelpers.js'
     ], 'client')

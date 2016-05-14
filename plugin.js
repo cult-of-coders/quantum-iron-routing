@@ -1,7 +1,8 @@
 var plugin = class extends Quantum.Model.Plugin {
     build(atom) {
-        let plugin = this;
         let config = _.clone(atom.config);
+        let routeOption = this.getRouterOption;
+        let roles = QF.use('service', 'roles');
 
         if (config.allowedRoles && config.allowedRoles.length) {
             let allowedRoles = config.allowedRoles;
@@ -10,9 +11,9 @@ var plugin = class extends Quantum.Model.Plugin {
 
             let onBeforeAction = function(...args) {
                 try {
-                    Quantum.Roles.check(Meteor.userId(), allowedRoles);
+                    roles.check(Meteor.userId(), allowedRoles);
                 } catch (e) {
-                    return this.render('NotAuthorized')
+                    return this.render(routeOption('notAuthorizedTemplate'))
                 }
 
                 if (otherOnBeforeAction) {
@@ -25,11 +26,24 @@ var plugin = class extends Quantum.Model.Plugin {
             config.onBeforeAction = onBeforeAction;
         }
 
-        return Router.route(atom.name, config);
+        let serverOptions = {};
+        if (Meteor.isServer) {
+            serverOptions = {where: 'server'};
+        }
+
+        return Router.route(atom.name, config, serverOptions);
     }
 
     configure(config) {
         Router.configure(config);
+    }
+
+    getRouter() {
+        return Router;
+    }
+
+    getRouterOption(key) {
+        return this.getRouter().options[key];
     }
 };
 
